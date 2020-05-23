@@ -24,6 +24,19 @@ class Website(models.Model):
     status = models.CharField(choices=STATUS_CHOICES, max_length=1)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
+    class Meta:
+        ordering = ["rating"]
+        db_table = "website_custom_table_name"
+        verbose_name = "the website"
+        verbose_name_plural = "the websites"
+
 
 class Car(models.Model):
     name = models.CharField(max_length=40, primary_key=True)
+
+
+class Ox(models.Model):
+    class Meta:
+        db_table = "ox"
+        verbose_name = "the ox"
+        verbose_name_plural = "the oxen"
