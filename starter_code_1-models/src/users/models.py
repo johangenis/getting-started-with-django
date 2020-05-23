@@ -30,6 +30,26 @@ class Website(models.Model):
         verbose_name = "the website"
         verbose_name_plural = "the websites"
 
+    def was_released_last_week(self):
+        if self.release_date < datetime.date(2020, 5, 16):
+            return "Released before last week"
+        else:
+            return "Released this week"
+
+    @property
+    def get_full_name(self):
+        return f"This is my website's full name: {self.name}"
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return f"/websites/{self.id}"
+
+    def save(self, *args, **kwargs):
+        print("we are doing something else here...")
+        super().save(*args, **kwargs)
+
 
 class Car(models.Model):
     name = models.CharField(max_length=40, primary_key=True)
