@@ -1,12 +1,23 @@
 <html>
+
 <body>
-<ul>
-{% for post in post_list %}
-    <li>{{ post }}</li>
-{% endfor %}
+    <ul>
+        {% for post in post_list %}
+        <li>{{ post.headline|title }}</li>
+        <span>{{ post.pub_date|timesince }} ago</span>
+        {% endfor %}
 
-{{ newVariable }}
+        {# Comment #}
 
-</ul>
+        {% if request.user.is_authenticated %}
+        authenticated
+        {% else %}
+        not authenticated
+        {% endif %}
+
+        {{ newVariable }}
+
+    </ul>
 </body>
+
 </html>
