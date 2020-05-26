@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+<link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+
+<body>
+
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type='submit'>Submit</button>
+</form>
+
+<div class="testDiv">
+hello
+</div>
+
+<img src="{% static 'myimage.png' %}" />
+
+</body>
+
+</html>
