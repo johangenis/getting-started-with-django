@@ -1,10 +1,35 @@
+{% load humanize %}
+
 <html>
 
 <body>
     <ul>
         {% for post in post_list %}
-        <li>{{ post.headline|title }}</li>
-        <span>{{ post.pub_date|timesince }} ago</span>
+        <li>{{ post.headline|title }}
+            <span>{{ post.pub_date|timesince }} ago</span><br>
+            <span>{{ post.rating|apnumber }}</span></li>
+        {# intcomma
+                4500 -> 4,500
+                45000 -> 45,000
+                5000.80 -> 5,000.80 #}
+
+        {# intword
+            1000000 -> 1 million
+            #}
+
+        {# naturalday
+            24 May 2020 -> Yesterday, today or tomorrow
+            #}
+
+        {# naturaltime
+            24 May 2020 -> 4 minutes ago, 10 hours from now
+            #}
+
+        {# ordinal
+            1 -> 1st
+            2 -> 2nd
+            #}
+
         {% endfor %}
 
         {# Comment #}

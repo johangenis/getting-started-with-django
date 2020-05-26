@@ -1,0 +1,57 @@
+{% load humanize %}
+
+<html>
+<body>
+<ul>
+{% for post in post_list %}
+    <li>{{ post.headline|title }}
+    <span>{{ post.pub_date|timesince }} ago</span>
+    <span>{{ post.rating|apnumber }}</span>
+    <span>{{ post.rating|apnumber }}</span>
+
+{# 
+intcomma
+4500 -> 4,500
+45000 -> 45,000
+5000.80 -> 5,000.80
+#}
+
+{# 
+intword
+1000000 -> 1.0 million
+#}
+
+{# 
+naturalday
+16 Feb 2019 -> Yesterday, Today, Tomorrow
+#}
+
+{# 
+naturaltime
+16 Feb 2019 -> 4 minutes ago, 10 hours from now
+#}
+
+{# 
+ordinal
+1 -> 1st
+2 -> 2nd
+#}
+
+    </li>
+{% endfor %}
+
+{# comment #}
+
+{% if request.user.is_authenticated %}
+authenticated
+{% else %}
+not authenticated
+{% endif %}
+
+
+
+{{ newVariable }}
+
+</ul>
+</body>
+</html>
