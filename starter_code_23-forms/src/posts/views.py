@@ -1,11 +1,14 @@
-from django.shortcuts import render
-from django.views.generic import ListView, DetailView
-from .models import Entry
+from django.shortcuts import render, redirect
+from django.views.generic import DetailView, ListView
+from django.views.generic import FormView
+from .forms import BlogForm, BlogModelForm
+from .models import Entry, Blog
 
 
 def entry_list_view(request):
     entries = Entry.objects.all()
-    context = {"post_list": entries}
+    blog_list = Blog.objects.all()
+    context = {"post_list": entries, "blog_list": blog_list}
     return render(request, "post_list.html", context)
 
 
@@ -31,3 +34,29 @@ class EntryClassDetailView(DetailView):
         obj = super().get_object()
         # perform logic
         return obj
+
+
+class EntryFormView(FormView):
+    template_name = "form.html"
+    form_class = BlogModelForm
+    success_url = "/"
+
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
+
+
+def post_create(request):
+    # form = BlogForm(request.POST or None)
+    # if form.is_valid():
+    #     name = form.cleaned_data.get("name")
+    #     tagline = form.cleaned_data.get("tagline")
+    #     blog = Blog(name=name, tagline=tagline)
+    #     blog.save()
+    #     return redirect("entry_list")
+    form = BlogModelForm(request.POST or None, request.FILES or None)
+    if form.is_valid():
+        form.save()
+        return redirect("entries: entry-list")
+    context = {"form": form}
+    return render(request, "form.html", context)
